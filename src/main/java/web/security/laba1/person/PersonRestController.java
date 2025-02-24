@@ -29,7 +29,7 @@ public class PersonRestController {
         return service.getById(id);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public void deletePerson(@PathVariable String id) {
         service.deleteById(id);
     }
