@@ -24,22 +24,22 @@ public class PersonRestController {
         return service.getAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/getById/{id}")
     public Person getPerson(@PathVariable String id) {
         return service.getById(id);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deletePerson(@PathVariable String id) {
         service.deleteById(id);
     }
 
-    @PostMapping
+    @PostMapping("/post")
     public Person createPerson(@RequestBody Person person) {
         return service.create(person);
     }
 
-    @PutMapping
+    @PutMapping("/update")
     public Person updatePerson(@RequestBody Person person) {
         return service.update(person);
     }
