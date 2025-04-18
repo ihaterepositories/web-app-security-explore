@@ -21,7 +21,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @Builder
 @ToString
-public class Person {
+public class Person extends AuditMetaData {
     @Id
     private String id;
     private String name;

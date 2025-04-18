@@ -8,8 +8,12 @@ package web.security.laba1.config;
     @since 13.03.2025 - 11.47
 */
 
+import org.springframework.aop.Advisor;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Role;
+import org.springframework.security.authorization.method.AuthorizationManagerBeforeMethodInterceptor;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -26,6 +30,12 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
+    @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
+    public static Advisor preAuthorizedMethodInterceptor() {
+        return AuthorizationManagerBeforeMethodInterceptor.preAuthorize();
+    }
+
+    @Bean
     public static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
@@ -35,16 +45,16 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(req -> req
                         .requestMatchers("/index.html").permitAll()
-                        .requestMatchers("api/v1/persons/admin").hasRole("ADMIN")
-                        .requestMatchers("api/v1/persons/delete/").hasRole("ADMIN")
-                        .requestMatchers("api/v1/persons/update").hasRole("ADMIN")
-                        .requestMatchers("api/v1/persons/getById/").hasRole("ADMIN")
-                        .requestMatchers("api/v1/persons/").hasRole("ADMIN")
-                        .requestMatchers("api/v1/persons/post").hasRole("ADMIN")
-                        .requestMatchers("api/v1/persons/user").hasRole("USER")
-                        .requestMatchers("api/v1/persons/getById/").hasRole("USER")
-                        .requestMatchers("api/v1/persons/").hasRole("USER")
-                        .requestMatchers("api/v1/persons/unknown").hasRole("UNKNOWN")
+                        //.requestMatchers("api/v1/persons/admin").hasRole("ADMIN")
+                        //.requestMatchers("api/v1/persons/delete/").hasRole("ADMIN")
+                        //.requestMatchers("api/v1/persons/update").hasRole("ADMIN")
+                        //.requestMatchers("api/v1/persons/getById/").hasRole("ADMIN")
+                        //.requestMatchers("api/v1/persons/").hasRole("ADMIN")
+                        //.requestMatchers("api/v1/persons/post").hasRole("ADMIN")
+                        //.requestMatchers("api/v1/persons/user").hasRole("USER")
+                        //.requestMatchers("api/v1/persons/getById/").hasRole("USER")
+                        //.requestMatchers("api/v1/persons/").hasRole("USER")
+                        //.requestMatchers("api/v1/persons/unknown").hasRole("UNKNOWN")
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults());
         return http.build();

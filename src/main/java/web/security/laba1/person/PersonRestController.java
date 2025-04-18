@@ -9,6 +9,7 @@ package web.security.laba1.person;
 */
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -45,17 +46,25 @@ public class PersonRestController {
     }
 
     @GetMapping("/user")
+    @PreAuthorize("hasRole('USER')")
     public String helloUser() {
         return "Hello User!";
     }
 
     @GetMapping("/admin")
+    @PreAuthorize("hasRole('ADMIN')")
     public String helloAdmin() {
         return "Hello Admin!";
     }
 
     @GetMapping("/unknown")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'UNKNOWN')")
     public String helloUnknown() {
         return "Hello Unknown!";
+    }
+
+    @GetMapping("/stranger")
+    public String helloStranger() {
+        return "Hello stranger!";
     }
 }
