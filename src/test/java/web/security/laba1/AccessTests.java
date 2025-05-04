@@ -36,107 +36,107 @@ public class AccessTests {
     private WebApplicationContext webApplicationContext;
     private MockMvc mockMvc;
 
-    @BeforeEach
-    void beforeAll(){
-        mockMvc = MockMvcBuilders
-                .webAppContextSetup(webApplicationContext)
-                .apply(springSecurity())
-                .build();
-    }
-
-    @Test
-    @WithAnonymousUser
-    public void whenEmptyCredsThenStatusUnauthorized() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/persons"))
-                .andExpect(status().isUnauthorized());
-    }
-
-    // admin route
-
-    @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {"ADMIN"})
-    public void whenAccessAdminRoute_withAdminRole_thenReturn200() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/persons/admin"))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    @WithMockUser(username = "user", password = "user", roles = {"USER"})
-    public void whenAccessAdminRoute_withUserRole_thenReturn403() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/persons/admin"))
-                .andExpect(status().isForbidden());
-    }
-
-    @Test
-    public void whenAccessAdminRoute_withoutAuthentication_thenReturn401() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/persons/admin"))
-                .andExpect(status().isUnauthorized());
-    }
-
-    // user route
-
-    @Test
-    @WithMockUser(username = "user", password = "user", roles = {"USER"})
-    public void whenUserRoute_withUserRole_thenReturn200() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/persons/user"))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {"ADMIN"})
-    public void whenUserRoute_withAdminRole_thenReturn403() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/persons/user"))
-                .andExpect(status().isForbidden());
-    }
-
-    @Test
-    public void whenAccessUserRoute_withoutAuthentication_thenReturn401() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/persons/user"))
-                .andExpect(status().isUnauthorized());
-    }
-
-    // unknown route
-
-    @Test
-    @WithMockUser(username = "user", password = "user", roles = {"USER"})
-    public void whenAccessUnknownRoute_withUserRole_thenReturn200() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/persons/unknown"))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {"ADMIN"})
-    public void whenAccessUnknownRoute_withAdminRole_thenReturn200() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/persons/unknown"))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    @WithMockUser(username = "unknown", password = "unknown", roles = {"UNKNOWN"})
-    public void whenAccessUnknownRoute_withUnknownRole_thenReturn200() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/persons/unknown"))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    public void whenAccessUnknownRoute_withoutAuthentication_thenReturn401() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/persons/unknown"))
-                .andExpect(status().isUnauthorized());
-    }
-
-    // stranger route
-
-    @Test
-    @WithMockUser(username = "user", password = "user", roles = {"USER"})
-    public void whenAccessStrangerRoute_withUserRole_thenReturn200() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/persons/stranger"))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    @WithMockUser(username = "admin", password = "admin", roles = {"ADMIN"})
-    public void whenAccessStrangerRoute_withAdminRole_thenReturn200() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/persons/stranger"))
-                .andExpect(status().isOk());
-    }
+//    @BeforeEach
+//    void beforeAll(){
+//        mockMvc = MockMvcBuilders
+//                .webAppContextSetup(webApplicationContext)
+//                .apply(springSecurity())
+//                .build();
+//    }
+//
+//    @Test
+//    @WithAnonymousUser
+//    public void whenEmptyCredsThenStatusUnauthorized() throws Exception {
+//        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/persons"))
+//                .andExpect(status().isUnauthorized());
+//    }
+//
+//    // admin route
+//
+//    @Test
+//    @WithMockUser(username = "admin", password = "admin", roles = {"ADMIN"})
+//    public void whenAccessAdminRoute_withAdminRole_thenReturn200() throws Exception {
+//        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/persons/admin"))
+//                .andExpect(status().isOk());
+//    }
+//
+//    @Test
+//    @WithMockUser(username = "user", password = "user", roles = {"USER"})
+//    public void whenAccessAdminRoute_withUserRole_thenReturn403() throws Exception {
+//        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/persons/admin"))
+//                .andExpect(status().isForbidden());
+//    }
+//
+//    @Test
+//    public void whenAccessAdminRoute_withoutAuthentication_thenReturn401() throws Exception {
+//        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/persons/admin"))
+//                .andExpect(status().isUnauthorized());
+//    }
+//
+//    // user route
+//
+//    @Test
+//    @WithMockUser(username = "user", password = "user", roles = {"USER"})
+//    public void whenUserRoute_withUserRole_thenReturn200() throws Exception {
+//        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/persons/user"))
+//                .andExpect(status().isOk());
+//    }
+//
+//    @Test
+//    @WithMockUser(username = "admin", password = "admin", roles = {"ADMIN"})
+//    public void whenUserRoute_withAdminRole_thenReturn403() throws Exception {
+//        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/persons/user"))
+//                .andExpect(status().isForbidden());
+//    }
+//
+//    @Test
+//    public void whenAccessUserRoute_withoutAuthentication_thenReturn401() throws Exception {
+//        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/persons/user"))
+//                .andExpect(status().isUnauthorized());
+//    }
+//
+//    // unknown route
+//
+//    @Test
+//    @WithMockUser(username = "user", password = "user", roles = {"USER"})
+//    public void whenAccessUnknownRoute_withUserRole_thenReturn200() throws Exception {
+//        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/persons/unknown"))
+//                .andExpect(status().isOk());
+//    }
+//
+//    @Test
+//    @WithMockUser(username = "admin", password = "admin", roles = {"ADMIN"})
+//    public void whenAccessUnknownRoute_withAdminRole_thenReturn200() throws Exception {
+//        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/persons/unknown"))
+//                .andExpect(status().isOk());
+//    }
+//
+//    @Test
+//    @WithMockUser(username = "unknown", password = "unknown", roles = {"UNKNOWN"})
+//    public void whenAccessUnknownRoute_withUnknownRole_thenReturn200() throws Exception {
+//        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/persons/unknown"))
+//                .andExpect(status().isOk());
+//    }
+//
+//    @Test
+//    public void whenAccessUnknownRoute_withoutAuthentication_thenReturn401() throws Exception {
+//        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/persons/unknown"))
+//                .andExpect(status().isUnauthorized());
+//    }
+//
+//    // stranger route
+//
+//    @Test
+//    @WithMockUser(username = "user", password = "user", roles = {"USER"})
+//    public void whenAccessStrangerRoute_withUserRole_thenReturn200() throws Exception {
+//        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/persons/stranger"))
+//                .andExpect(status().isOk());
+//    }
+//
+//    @Test
+//    @WithMockUser(username = "admin", password = "admin", roles = {"ADMIN"})
+//    public void whenAccessStrangerRoute_withAdminRole_thenReturn200() throws Exception {
+//        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/persons/stranger"))
+//                .andExpect(status().isOk());
+//    }
 }

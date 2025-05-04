@@ -11,13 +11,17 @@ package web.security.laba1.person;
 import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import web.security.laba1.security.SecurityConfig;
 
 import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class PersonService {
+
     private final PersonRepository repository;
+    private final SecurityConfig securityConfig;
+
     private List<Person> persons;
 
     @PostConstruct
