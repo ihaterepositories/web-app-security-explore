@@ -46,16 +46,20 @@ public class PersonRestController {
     }
 
     @GetMapping("/user")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasAuthority('USER')")
     public String helloUser() {
         return "Hello User!";
     }
 
     @GetMapping("/admin")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String helloAdmin() {
         return "Hello Admin!";
     }
+
+    @GetMapping("/superAdmin")
+    @PreAuthorize("hasAuthority('SUPERADMIN')")
+    public String helloSuperAdmin() {return "Hello Super Admin!";}
 
     @GetMapping("/unknown")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'UNKNOWN')")
